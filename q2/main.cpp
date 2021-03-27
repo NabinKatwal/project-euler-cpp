@@ -2,15 +2,52 @@
 //1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 //By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 #include <iostream>
+//#include <bits/stdc++.h>
 using namespace std;
 #define MAXSIZE 100
 void fibonacci();
+int maximum_element(int []);
 
 int main() {
     fibonacci();
 }
 
+int maximum_element(int arr[]){
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int max = arr[0];
+    for (int i=1;i<n;i++){
+        if(arr[i]>max){
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
 void fibonacci(){
     int series[MAXSIZE] = {1,2};
+    int n = sizeof(series) / sizeof(series[0]);
     int count = 0;
+    int even[MAXSIZE];
+    int len_even, sum=0;
+
+    while (true){
+        series[count+2] = series[count] + series[count+1];
+        count++;
+        if (maximum_element(series)>100){
+            break;
+        }
+    }
+
+    for (int i = 0;i<n;i++){
+        if (series[i]%2==0){
+            even[i] = series[i];
+        }
+    }
+
+    len_even = sizeof(even) / sizeof (even[0]);
+
+    for (int j=0;j<len_even;j++){
+        sum = sum+even[j];
+    }
+    cout<<sum<<endl;
 }
